@@ -1,4 +1,11 @@
 #!/bin/sh
+
+#this code is tested un fresh 2015-11-21-raspbian-jessie-lite Raspberry Pi image
+
+#sudo apt-get update -y && sudo apt-get upgrade -y
+#sudo apt-get install git -y
+#git clone https://github.com/catonrug/raspberry-pi-zabbix.git && cd raspberry-pi-zabbix && chmod +x agent-install.sh server-install.sh
+
 apt-get update -y && apt-get upgrade -y
 apt-get install mysql-server -y
 apt-get install mysql-client libmysqlclient-dev -y
