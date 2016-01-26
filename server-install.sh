@@ -1,13 +1,14 @@
 #!/bin/sh
-
 #this code is tested un fresh 2015-11-21-raspbian-jessie-lite Raspberry Pi image
-
-#sudo apt-get update -y && sudo apt-get upgrade -y
-#sudo apt-get install git -y
+#sudo raspi-config -> extend partition -> reboot
+#sudo su
+#apt-get update -y && apt-get upgrade -y && apt-get install git -y
 #git clone https://github.com/catonrug/raspberry-pi-zabbix.git && cd raspberry-pi-zabbix && chmod +x agent-install.sh server-install.sh
+#./server-install.sh
 
 apt-get update -y && apt-get upgrade -y
 apt-get install mysql-server -y
+#you are prompted to enter password here. please enter password [reverse]
 apt-get install mysql-client libmysqlclient-dev -y
 apt-get install apache2 apache2-dev -y
 apt-get install php5 php5-dev php5-gd php5-mysql -y
@@ -76,4 +77,4 @@ global \$DB;
 \$IMAGE_FORMAT_DEFAULT = IMAGE_FORMAT_PNG;
 ?>
 EOF
-apt-get install mtr nmap -y
+apt-get install mtr nmap dstat -y
