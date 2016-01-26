@@ -10,7 +10,7 @@ groupadd zabbix
 useradd -g zabbix zabbix
 mkdir -p /var/log/zabbix
 chown -R zabbix:zabbix /var/log/zabbix/
-tar -vzxf zabbix-*.tar.gz ~
+tar -vzxf zabbix-*.tar.gz -C ~
 cd ~/zabbix-*/
 ./configure --enable-agent
 make install
