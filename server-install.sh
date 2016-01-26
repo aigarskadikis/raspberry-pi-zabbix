@@ -20,6 +20,7 @@ apt-get install libssh2-1-dev -y
 apt-get install libopenipmi-dev -y
 apt-get install libcurl4-openssl-dev -y
 /usr/bin/mysqladmin -u root -preverse password 'LCq9LCFCNMZEqatm'
+sleep 10
 mysql -h localhost -uroot -pLCq9LCFCNMZEqatm -P 3306 -s <<< 'CREATE DATABASE zabbix CHARACTER SET UTF8'
 mysql -h localhost -uroot -pLCq9LCFCNMZEqatm -P 3306 -s <<< 'GRANT ALL PRIVILEGES on zabbix.* to "zabbix"@"localhost" IDENTIFIED BY "drFJ7xx5MNTbqJ39"'
 groupadd zabbix
