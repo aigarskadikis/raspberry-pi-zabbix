@@ -28,9 +28,7 @@ chown -R zabbix:zabbix /var/log/zabbix/
 mkdir -p /var/zabbix/alertscripts
 mkdir -p /var/zabbix/externalscripts
 chown -R zabbix:zabbix /var/zabbix/
-cp zabbix-*.tar.gz ~
-cd ~
-tar -vzxf zabbix-*.tar.gz
+tar -vzxf zabbix-*.tar.gz -C ~
 cd ~/zabbix-*/database/mysql
 mysql -uzabbix -pdrFJ7xx5MNTbqJ39 zabbix < schema.sql
 mysql -uzabbix -pdrFJ7xx5MNTbqJ39 zabbix < images.sql
@@ -78,3 +76,4 @@ global \$DB;
 \$IMAGE_FORMAT_DEFAULT = IMAGE_FORMAT_PNG;
 ?>
 EOF
+apt-get install mtr nmap -y

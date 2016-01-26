@@ -24,3 +24,4 @@ EnableRemoteCommands=1
 Hostname=RPi$fourth
 EOF
 /etc/init.d/zabbix-agent restart
+apt-get install mtr nmap -y
