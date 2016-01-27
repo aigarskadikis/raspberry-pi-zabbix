@@ -5,7 +5,8 @@
 #apt-get update -y && apt-get upgrade -y && apt-get install git -y
 #git clone https://github.com/catonrug/raspberry-pi-zabbix.git && cd raspberry-pi-zabbix && chmod +x agent-install.sh server-install.sh
 #./agent-install.sh
-
+apt-get install nmap python-mechanize python-requests -y
+apt-get install mtr dstat telnet -y
 groupadd zabbix
 useradd -g zabbix zabbix
 mkdir -p /var/log/zabbix
@@ -24,4 +25,3 @@ EnableRemoteCommands=1
 Hostname=RPi$fourth
 EOF
 /etc/init.d/zabbix-agent restart
-apt-get install mtr nmap dstat -y

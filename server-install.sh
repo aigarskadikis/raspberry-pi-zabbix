@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #this code is tested un fresh 2015-11-21-raspbian-jessie-lite Raspberry Pi image
 #sudo raspi-config -> extend partition -> reboot
 #sudo su
@@ -78,4 +78,5 @@ global \$DB;
 \$IMAGE_FORMAT_DEFAULT = IMAGE_FORMAT_PNG;
 ?>
 EOF
-apt-get install mtr nmap dstat -y
+#install additional debugging tools
+apt-get install mtr nmap dstat telnet python-mechanize python-requests -y
