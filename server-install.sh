@@ -79,3 +79,11 @@ global \$DB;
 EOF
 #install additional debugging tools
 apt-get install mtr nmap dstat telnet python-mechanize python-requests -y
+
+#reset ip address in config if sd card is moved to another raspberry
+cat > /etc/network/if-up.d/zabbix-server-ip << EOF
+#!/bin/sh
+ipaddress=\$(ifconfig | grep "inet.*addr.*Bcast.*Mask" | sed "s/  Bcast.*\$//g" | sed "s/^.*://g")
+sed -i "s/^\\\$ZBX_SERVER_NAME = .*$/\\\$ZBX_SERVER_NAME = \d039\`echo \$ipaddress\`\d039;/" /var/www/html/zabbix/conf/zabbix.conf.php
+EOF
+chmod +x /etc/network/if-up.d/zabbix-server-ip
