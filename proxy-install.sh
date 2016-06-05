@@ -32,8 +32,11 @@ cd ~/zabbix-*/
 ./configure --enable-proxy --with-net-snmp --with-sqlite3 --with-ssh2
 make install
 
+echo
 echo default config file:
 grep -v "^#\|^$" /usr/local/etc/zabbix_proxy.conf
+echo
+
 
 sed -i "s/^Server=.*$/Server=192.168.88.55/" /usr/local/etc/zabbix_proxy.conf #write ip address of real zabbix server
 sed -i "s/^Hostname=.*$/Hostname=Broceni/" /usr/local/etc/zabbix_proxy.conf #write a name for this proxy server
@@ -43,6 +46,11 @@ chown -R zabbix:zabbix /var/lib/sqlite/
 chmod 774 -R /var/lib/sqlite
 chmod 664 /var/lib/sqlite/zabbix.db
 sed -i "s/^.*FpingLocation=.*$/FpingLocation=\/usr\/bin\/fping/" /usr/local/etc/zabbix_proxy.conf #/usr/sbin/fping: [2] No such file or directory
+
+echo
+echo config file now:
+grep -v "^#\|^$" /usr/local/etc/zabbix_proxy.conf
+echo
 
 #set up startup service
 cat > /etc/init.d/zabbix_proxy << EOF
