@@ -1,0 +1,35 @@
+Configuration:
+
+  Detected OS:           linux-gnueabihf
+  Install path:          /usr/local
+  Compilation arch:      linux
+
+  Compiler:              gcc
+  Compiler flags:        -g -O2     -I/usr/include     -I/usr/local/include -I/usr/lib/arm-linux-gnueabihf/perl/5.20/CORE -I. -I/usr/include -I/usr/include
+
+  Enable server:         no
+
+  Enable proxy:          yes
+  Proxy details:
+    With database:         SQLite v3.x
+    WEB Monitoring:        no
+    SNMP:                  yes
+    IPMI:                  no
+    SSH:                   yes
+    ODBC:                  no
+    Linker flags:          -rdynamic        -L/usr/lib    -L/usr/lib/arm-linux-gnueabihf -L/usr/lib
+    Libraries:             -lm -ldl  -lresolv       -lsqlite3    -lnetsnmp -lssh2
+
+  Enable agent:          no
+
+  Enable Java gateway:   no
+
+  LDAP support:          no
+  IPv6 support:          no
+
+***********************************************************
+*            Now run 'make install'                       *
+*                                                         *
+*            Thank you for using Zabbix!                  *
+*              <http://www.zabbix.com>                    *
+***********************************************************
