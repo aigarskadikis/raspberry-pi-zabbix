@@ -2,7 +2,7 @@
 #this code is tested un fresh 2016-05-27-raspbian-jessie-lite.img Raspberry Pi image
 #sudo raspi-config -> extend partition -> reboot
 #sudo su
-#apt-get update -y && apt-get upgrade -y && apt-get install git -y
+#apt-get update -y && apt-get install git -y
 #git clone https://github.com/catonrug/raspberry-pi-zabbix.git && cd raspberry-pi-zabbix && chmod +x proxy-install.sh
 #./proxy-install.sh
 
@@ -33,7 +33,7 @@ cd ~/zabbix-*/
 make install
 
 echo
-echo default config file:
+echo default zabbix_proxy.conf config file:
 grep -v "^#\|^$" /usr/local/etc/zabbix_proxy.conf
 echo
 
@@ -88,8 +88,12 @@ cp ~/zabbix-*/misc/init.d/debian/zabbix-agent /etc/init.d/
 #let zabbix agent service to start up automatically at systems startup
 update-rc.d zabbix-agent defaults
 
-#set zabbix agent configuration file
+echo
+echo default zabbix_agentd.conf config file:
+grep -v "^#\|^$" /usr/local/etc/zabbix_agentd.conf
+echo
 
+#set zabbix agent configuration file
 sed -i "s/^Server=.*$/Server=xxxxxxxxxxxx\.sn\.mynetname\.net/" /usr/local/etc/zabbix_agentd.conf #write ip address of real zabbix server
 sed -i "s/^Hostname=.*$/Hostname=Broceni/" /usr/local/etc/zabbix_agentd.conf #write a name for this proxy server
 sed -i "s/^LogFile=.*$/LogFile=\/tmp\/zabbix_agentd.log/" /usr/local/etc/zabbix_agentd.conf #destination for zabbix agent log file
