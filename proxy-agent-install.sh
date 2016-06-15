@@ -102,3 +102,6 @@ echo
 echo zabbix_agentd.conf file now are:
 grep -v "^#\|^$" /usr/local/etc/zabbix_agentd.conf
 echo
+
+#set up reboot at midnight
+echo "05 00 * * * root reboot">> /etc/crontab
