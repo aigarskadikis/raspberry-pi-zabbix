@@ -3,8 +3,8 @@
 #sudo raspi-config -> extend partition -> reboot
 #sudo su
 #apt-get update -y && apt-get install git -y
-#git clone https://github.com/catonrug/raspberry-pi-zabbix.git && cd raspberry-pi-zabbix && chmod +x proxy-install.sh
-#./proxy-install.sh
+#git clone https://github.com/catonrug/raspberry-pi-zabbix.git && cd raspberry-pi-zabbix && chmod +x proxy-agent-install.sh
+#time ./proxy-agent-install.sh
 
 #update system
 apt-get update -y && apt-get upgrade -y
