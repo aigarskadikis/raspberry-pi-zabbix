@@ -24,4 +24,5 @@ Server=192.168.88.55
 EnableRemoteCommands=1
 Hostname=RPi$fourth
 EOF
+usermod -a -G video zabbix
 /etc/init.d/zabbix-agent restart
