@@ -3,8 +3,7 @@
 #sudo raspi-config -> extend partition -> reboot
 #sudo su
 #apt-get update -y && apt-get upgrade -y && apt-get install git -y
-#git clone https://github.com/catonrug/raspberry-pi-zabbix.git && cd raspberry-pi-zabbix && chmod +x agent-install.sh server-install.sh
-#./agent-install.sh
+#git clone https://github.com/catonrug/raspberry-pi-zabbix.git && cd raspberry-pi-zabbix && chmod +x agent-install.sh && ./agent-install.sh
 apt-get install nmap python-mechanize python-requests -y
 apt-get install mtr dstat telnet -y
 groupadd zabbix
