@@ -23,11 +23,6 @@ echo zabbix_server.conf not found on standart location
 return
 fi
 
-echo
-echo
-echo
-echo
-
 #backup apache2 confiuration
 if [ -f /etc/php5/apache2/php.ini ]; then
 cp /etc/php5/apache2/php.ini .
@@ -43,10 +38,6 @@ echo php.ini not found on standart location
 return
 fi
 
-echo
-echo
-echo
-echo
 
 #backup front end configuration
 if [ -f /var/www/html/zabbix/conf/zabbix.conf.php ]; then
