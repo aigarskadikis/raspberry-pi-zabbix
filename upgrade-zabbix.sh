@@ -38,7 +38,6 @@ echo php.ini not found on standart location
 return
 fi
 
-
 #backup front end configuration
 if [ -f /var/www/html/zabbix/conf/zabbix.conf.php ]; then
 cp /var/www/html/zabbix/conf/zabbix.conf.php ~/zabbix-*/
@@ -50,50 +49,49 @@ echo zabbix.conf.php not found on standart location
 return
 fi
 
-echo
-echo
-echo
-echo
-
 if [ -f /etc/init.d/zabbix-agent ]; then
 echo zabbix-agent service found. stopping now
 #stop zabbix agent
-#service zabbix-agent stop
+service zabbix-agent stop
 else
 echo zabbix-agent not found on standart location
 return
 fi
 
-
 if [ -f /etc/init.d/zabbix-server ]; then
 echo zabbix-server service found. stopping now
 #stop zabbix server
-#service zabbix-server stop
+service zabbix-server stop
 else
 echo zabbix-server not found on standart location
 return
 fi
 
+#remove zabbix_sender and zabbix_get binary
+rm /usr/local/bin/{zabbix_get,zabbix_sender}
 
+#remove agent and server configuration
+rm /usr/local/etc/{zabbix_agent.conf,zabbix_agentd.conf,zabbix_server.conf}
+rm -rf /usr/local/etc/{zabbix_agent.conf.d,zabbix_agentd.conf.d,zabbix_server.conf.d}
 
 #check if all neccessary libs are installed before compiling server binaries
-#./configure --enable-server --enable-agent --with-mysql --with-libcurl --with-libxml2 --with-ssh2 --with-net-snmp --with-openipmi --with-jabber
+./configure --enable-server --enable-agent --with-mysql --with-libcurl --with-libxml2 --with-ssh2 --with-net-snmp --with-openipmi --with-jabber
 
 #install server
-#make install
-
-#remove previous service
-#rm /etc/init.d/zabbix-agent
-#rm /etc/init.d/zabbix-server 
+make install
 
 #install content as service
-#cp ~/zabbix-*/misc/init.d/debian/* /etc/init.d/
-#update-rc.d zabbix-server defaults
-#update-rc.d zabbix-agent defaults
+rm /etc/init.d/{zabbix-agent,zabbix-server}
+cp ~/zabbix-*/misc/init.d/debian/* /etc/init.d/
+update-rc.d zabbix-server defaults
+update-rc.d zabbix-agent defaults
 
+mkdir /var/www/html/zabbix
+cd ~/zabbix-*/frontends/php/
+rm -rf /var/www/html/zabbix/*
+cp -a . /var/www/html/zabbix/
 
-#mkdir /var/www/html/zabbix
-#cd ~/zabbix-*/frontends/php/
-#cp -a . /var/www/html/zabbix/
+cat php.ini > /etc/php5/apache2/php.ini
+cat zabbix_server.conf > /usr/local/etc/zabbix_server.conf
+cat zabbix.conf.php > /var/www/html/zabbix/conf/zabbix.conf.php
 
-#cat zabbix.conf.php > /var/www/html/zabbix/conf/zabbix.conf.php
