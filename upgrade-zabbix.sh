@@ -1,7 +1,7 @@
 #!/bin/sh
 #sudo su
 #apt-get update -y && apt-get upgrade -y && apt-get install git -y
-#git clone https://github.com/catonrug/raspberry-pi-zabbix.git && cd raspberry-pi-zabbix && chmod +x upgrade.sh
+#git clone https://github.com/catonrug/raspberry-pi-zabbix.git && cd raspberry-pi-zabbix && chmod +x upgrade-zabbix.sh
 #./upgrade.sh
 
 #extract new version
@@ -10,10 +10,10 @@ tar -vzxf zabbix-*.tar.gz -C ~
 #go to extracted content
 cd ~/zabbix-*/
 
-
 #backup zabbix server configuration
 if [ -f /usr/local/etc/zabbix_server.conf ]; then
-cp /usr/local/etc/zabbix_server.conf ~/zabbix-*/
+cp /usr/local/etc/zabbix_server.conf .
+echo ======================zabbix_server.conf======================
 grep -v "^#\|^$" zabbix_server.conf
 echo
 else
@@ -21,31 +21,45 @@ echo zabbix_server.conf not found on standart location
 return
 fi
 
+echo
+echo
+echo
+echo
+
 #backup apache2 confiuration
 if [ -f /etc/php5/apache2/php.ini ]; then
-cp /etc/php5/apache2/php.ini ~/zabbix-*/
-grep -v "^#\|^$" /etc/php5/apache2/php.ini
+cp /etc/php5/apache2/php.ini .
+echo ===========================php.ini============================
+grep -v "^;\|^$" php.ini
 echo
 else
 echo php.ini not found on standart location
 return
 fi
 
+echo
+echo
+echo
+echo
 
 #backup front end configuration
 if [ -f /var/www/html/zabbix/conf/zabbix.conf.php ]; then
 cp /var/www/html/zabbix/conf/zabbix.conf.php ~/zabbix-*/
-grep -v "^#\|^$" /var/www/html/zabbix/conf/zabbix.conf.php
+echo =======================zabbix.conf.php========================
+grep -v "^#\|^$" zabbix.conf.php
 echo
 else
 echo zabbix.conf.php not found on standart location
 return
 fi
 
-
+echo
+echo
+echo
+echo
 
 if [ -f /etc/init.d/zabbix-agent ]; then
-echo zabbix-agent service found
+echo zabbix-agent service found. stopping now
 #stop zabbix agent
 #service zabbix-agent stop
 else
@@ -55,14 +69,13 @@ fi
 
 
 if [ -f /etc/init.d/zabbix-server ]; then
-echo zabbix-server service found stopping now
+echo zabbix-server service found. stopping now
 #stop zabbix server
 #service zabbix-server stop
 else
 echo zabbix-server not found on standart location
 return
 fi
-
 
 
 
