@@ -5,7 +5,9 @@
 #./upgrade.sh
 
 #extract new version
-tar -vzxf zabbix-*.tar.gz -C ~
+echo extracting zabbix archive..
+tar -vzxf zabbix-*.tar.gz -C ~ > /dev/null
+echo
 
 #go to extracted content
 cd ~/zabbix-*/
@@ -30,7 +32,11 @@ echo
 if [ -f /etc/php5/apache2/php.ini ]; then
 cp /etc/php5/apache2/php.ini .
 echo ===========================php.ini============================
-grep -v "^;\|^$" php.ini
+grep "s/^post_max_size" php.ini
+grep "s/^max_execution_time" php.ini
+grep "s/^max_input_time" php.ini
+grep "s/^date.timezone" php.ini
+grep "s/^always_populate_raw_post_data" php.ini
 echo
 else
 echo php.ini not found on standart location
