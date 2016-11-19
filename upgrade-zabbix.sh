@@ -4,9 +4,6 @@
 #git clone https://github.com/catonrug/raspberry-pi-zabbix.git && cd raspberry-pi-zabbix && chmod +x upgrade-zabbix.sh
 #./upgrade.sh
 
-cd /var/lib/mysql
-
-
 #extract new version
 echo extracting zabbix archive..
 tar -vzxf zabbix-*.tar.gz -C ~ > /dev/null
@@ -54,8 +51,8 @@ fi
 
 if [ -f /etc/init.d/zabbix-agent ]; then
 echo zabbix-agent service found. stopping now
-#stop zabbix agent
 service zabbix-agent stop
+echo
 else
 echo zabbix-agent not found on standart location
 return
@@ -63,39 +60,72 @@ fi
 
 if [ -f /etc/init.d/zabbix-server ]; then
 echo zabbix-server service found. stopping now
-#stop zabbix server
 service zabbix-server stop
+echo
 else
 echo zabbix-server not found on standart location
 return
 fi
 
-#remove zabbix_sender and zabbix_get binary
+#remove zabbix_sender and zabbix_get
+echo removing zabbix_get and zabbix_sender binary
 rm /usr/local/bin/{zabbix_get,zabbix_sender}
+echo
 
 #remove agent and server configuration
+echo removing zabbix_agent.conf and zabbix_server.conf
 rm /usr/local/etc/{zabbix_agent.conf,zabbix_agentd.conf,zabbix_server.conf}
 rm -rf /usr/local/etc/{zabbix_agent.conf.d,zabbix_agentd.conf.d,zabbix_server.conf.d}
+echo
 
 #check if all neccessary libs are installed before compiling server binaries
+echo installing zabbix server from source
+echo this will take a while
 ./configure --enable-server --enable-agent --with-mysql --with-libcurl --with-libxml2 --with-ssh2 --with-net-snmp --with-openipmi --with-jabber
 
 #install server
 make install
+echo
 
 #install content as service
+echo removing zabbix-agent and zabbix-server service..
 rm /etc/init.d/{zabbix-agent,zabbix-server}
+echo
+
+echo installing new zabbix-agent and zabbix-server service..
 cp ~/zabbix-*/misc/init.d/debian/* /etc/init.d/
 update-rc.d zabbix-server defaults
 update-rc.d zabbix-agent defaults
+echo
 
+echo removing old frontend
+rm -rf /var/www/html/zabbix/*
+echo
+
+echo installing new frontend
 mkdir /var/www/html/zabbix
 cd ~/zabbix-*/frontends/php/
-rm -rf /var/www/html/zabbix/*
 cp -a . /var/www/html/zabbix/
+echo
 
 cd ~/zabbix-*/
+echo restoring php.ini
 cat php.ini > /etc/php5/apache2/php.ini
+echo
+
+echo restoring zabbix_server.conf
 cat zabbix_server.conf > /usr/local/etc/zabbix_server.conf
+echo
+
+echo restoring zabbix.conf.php
 cat zabbix.conf.php > /var/www/html/zabbix/conf/zabbix.conf.php
+echo
+
+echo starting zabbix-server
+service zabbix-server start
+echo
+
+echo restarting apache web daemon
+service apache2 restart
+echo
 
