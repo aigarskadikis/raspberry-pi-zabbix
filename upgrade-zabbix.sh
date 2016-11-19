@@ -4,6 +4,9 @@
 #git clone https://github.com/catonrug/raspberry-pi-zabbix.git && cd raspberry-pi-zabbix && chmod +x upgrade-zabbix.sh
 #./upgrade.sh
 
+cd /var/lib/mysql
+
+
 #extract new version
 echo extracting zabbix archive..
 tar -vzxf zabbix-*.tar.gz -C ~ > /dev/null
@@ -91,6 +94,7 @@ cd ~/zabbix-*/frontends/php/
 rm -rf /var/www/html/zabbix/*
 cp -a . /var/www/html/zabbix/
 
+cd ~/zabbix-*/
 cat php.ini > /etc/php5/apache2/php.ini
 cat zabbix_server.conf > /usr/local/etc/zabbix_server.conf
 cat zabbix.conf.php > /var/www/html/zabbix/conf/zabbix.conf.php
