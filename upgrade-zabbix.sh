@@ -78,6 +78,10 @@ rm /usr/local/etc/{zabbix_agent.conf,zabbix_agentd.conf,zabbix_server.conf}
 rm -rf /usr/local/etc/{zabbix_agent.conf.d,zabbix_agentd.conf.d,zabbix_server.conf.d}
 echo
 
+
+#/usr/local/sbin/{zabbix_agent,zabbix_agentd,zabbix_server}
+
+
 #check if all neccessary libs are installed before compiling server binaries
 echo installing zabbix server from source
 echo this will take a while
